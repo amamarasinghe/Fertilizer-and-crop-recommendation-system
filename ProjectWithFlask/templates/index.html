@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriAdvisor | Smart Help for Your Field</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+<body>
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <header class="hero">
+    <nav class="topbar">
+      <a href="{{ url_for('home') }}" class="brand">
+  <div>
+    <span class="brand-mark">AGRI</span><span class="brand-tail"> ADVISOR</span>
+  </div>
+</a>
+
+      <!-- Mobile menu button -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <div class="topbar-links">
+        <a href="#crop">Crop AI</a>
+        <a href="#fertilizer">Fertilizer AI</a>
+        <a href="{{ url_for('guides') }}">Guides</a>
+        <a href="{{ url_for('weather') }}">Weather</a>
+        <a href="{{ url_for('about') }}">About</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">For farmers and field officers</p>
+        <h1>Choose the right crop and fertilizer for your land.</h1>
+        <p class="lede">
+          AgriAdvisor turns your soil and weather readings into simple, clear advice. No technical knowledge needed – just enter your values and get a recommendation.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#crop">Start with crop advice</a>
+        </div>
+        <div class="signal">
+          <span class="dot"></span>
+          <span>Fast, simple, and works on any phone or computer.</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="card-title">What you can do here</div>
+        <p class="muted small">Use these tools to plan your next season with more confidence.</p>
+        <div class="snapshot-actions">
+          <a class="pill primary" href="#crop">
+            <span class="pill-title">Crop Prediction</span>
+            <span class="pill-sub1">Find the best crop for your field</span>
+          </a>
+          <a class="pill" href="#fertilizer">
+            <span class="pill-title">Fertilizer Recommendation</span>
+            <span class="pill-sub">Know what nutrients to add</span>
+          </a>
+          <a class="pill" href="{{ url_for('guides') }}">
+            <span class="pill-title">Learn best practices</span>
+            <span class="pill-sub">Simple steps you can follow</span>
+          </a>
+          <a class="pill" href="{{ url_for('weather') }}">
+            <span class="pill-title">Check weather</span>
+            <span class="pill-sub">See today’s and upcoming conditions</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="crop" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Crop recommender</p>
+        <h2>Use your soil test to pick the best crop.</h2>
+        <p class="lede">
+          Enter your latest soil and weather readings. AgriAdvisor will suggest a crop that fits your field conditions. If you don’t know a value, ask your field officer or use your soil report.
+        </p>
+      </div>
+      <div class="panel-grid">
+        <div class="panel">
+          <form id="crop-form" class="form-grid">
+            <label> Nitrogen (N)
+              <input required type="number" name="N" placeholder="e.g. 90" step="1">
+            </label>
+            <label> Phosphorous (P)
+              <input required type="number" name="P" placeholder="e.g. 42" step="1">
+            </label>
+            <label> Potassium (K)
+              <input required type="number" name="K" placeholder="e.g. 43" step="1">
+            </label>
+            <label> Temperature (°C)
+              <input required type="number" name="temperature" placeholder="e.g. 23.5" step="0.1">
+            </label>
+            <label> Humidity (%)
+              <input required type="number" name="humidity" placeholder="0–100" step="0.1" min="0" max="100">
+            </label>
+            <label> Soil pH
+              <input required type="number" name="ph" placeholder="0–14" step="0.1" min="0" max="14">
+            </label>
+            <label> Rainfall (mm)
+              <input required type="number" name="rainfall" placeholder="e.g. 120" step="0.1">
+            </label>
+            <button type="submit" class="btn primary full">Suggest a crop</button>
+          </form>
+        </div>
+        <div class="panel highlight">
+          <div class="panel-title">Result</div>
+          <div id="crop-result" class="result-box">Fill the details and press “Suggest a crop”.</div>
+          <div class="hint">
+            <span class="dot dot-small"></span>
+            This suggestion is based on research data and typical field conditions.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fertilizer" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Fertilizer recommender</p>
+      <h2>Get a fertilizer suggestion that matches your soil.</h2>
+        <p class="lede">
+          Share your soil values, crop type, and soil type. AgriAdvisor will help you understand which kind of fertilizer is a better match for your land.
+        </p>
+      </div>
+      <div class="panel-grid">
+        <div class="panel">
+          <form id="fertilizer-form" class="form-grid">
+            <label> Nitrogen
+              <input required type="number" name="Nitrogen" placeholder="e.g. 40" step="1">
+            </label>
+            <label> Potassium
+              <input required type="number" name="Potassium" placeholder="e.g. 30" step="1">
+            </label>
+            <label> Phosphorous
+              <input required type="number" name="Phosphorous" placeholder="e.g. 25" step="1">
+            </label>
+            <label> Temparature (°C)
+              <input required type="number" name="Temparature" placeholder="e.g. 26.5" step="0.1">
+            </label>
+            <label> Humidity (%)
+              <input required type="number" name="Humidity" placeholder="0–100" step="0.1" min="0" max="100">
+            </label>
+            <label> Moisture (%)
+              <input required type="number" name="Moisture" placeholder="0–100" step="0.1" min="0" max="100">
+            </label>
+            <label> Soil type
+              <select required name="soil_type">
+                <option value="">Select soil type</option>
+                <option value="Sandy">Sandy</option>
+                <option value="Loamy">Loamy</option>
+                <option value="Black">Black</option>
+                <option value="Red">Red</option>
+                <option value="Clayey">Clayey</option>
+              </select>
+            </label>
+            <label> Crop type
+              <select required name="crop_type">
+                <option value="">Select crop type</option>
+                <option value="Maize">Maize</option>
+                <option value="Sugarcane">Sugarcane</option>
+                <option value="Cotton">Cotton</option>
+                <option value="Tobacco">Tobacco</option>
+                <option value="Paddy">Paddy</option>
+                <option value="Barley">Barley</option>
+                <option value="Wheat">Wheat</option>
+                <option value="Millets">Millets</option>
+                <option value="Oil seeds">Oil seeds</option>
+                <option value="Pulses">Pulses</option>
+                <option value="Ground Nuts">Ground Nuts</option>
+              </select>
+            </label>
+            <button type="submit" class="btn primary full">Suggest fertilizer</button>
+          </form>
+        </div>
+        <div class="panel highlight">
+          <div class="panel-title">Result</div>
+          <div id="fertilizer-result" class="result-box">Fill the details and press “Suggest fertilizer”.</div>
+          <div class="hint">
+            <span class="dot dot-small"></span>
+            This is a guideline only. Always follow local farming and extension advice.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="explain">
+      <div class="section-header">
+        <p class="eyebrow">How AgriAdvisor helps you</p>
+        <h2>From your readings to a simple recommendation.</h2>
+      </div>
+      <div class="timeline">
+        <div class="step">
+          <div class="step-badge">1</div>
+          <div class="step-body">
+            <h3>We use tested research methods</h3>
+            <p>AgriAdvisor is built using models trained on real data and tested by experts, so the suggestions are based on patterns seen in many fields.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-badge">2</div>
+          <div class="step-body">
+            <h3>We check your values</h3>
+            <p>The system checks for impossible numbers (like negative humidity or pH outside 0–14) and helps you avoid wrong entries.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-badge">3</div>
+          <div class="step-body">
+            <h3>We show you a clear answer</h3>
+            <p>Once you submit, AgriAdvisor quickly turns your inputs into a simple crop or fertilizer suggestion that you can discuss with your field officer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    async function handlePrediction(formId, resultId, endpoint) {
+      const form = document.getElementById(formId);
+      const resultBox = document.getElementById(resultId);
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = Object.fromEntries(new FormData(form).entries());
+
+        resultBox.textContent = 'Working on your answer…';
+        resultBox.classList.add('loading');
+
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await response.json();
+          if (!response.ok || data.error) {
+            const message = data.error ? JSON.stringify(data.error) : 'Please check your values and try again.';
+            resultBox.textContent = `Please check your details: ${message}`;
+            resultBox.classList.add('error');
+            resultBox.classList.remove('success');
+          } else {
+            const label = data.crop || data.fertilizer || 'No result';
+            resultBox.textContent = `Suggested: ${label}`;
+            resultBox.classList.add('success');
+            resultBox.classList.remove('error');
+          }
+        } catch (err) {
+          resultBox.textContent = 'Network problem. Please try again in a moment.';
+          resultBox.classList.add('error');
+          resultBox.classList.remove('success');
+        } finally {
+          resultBox.classList.remove('loading');
+        }
+      });
+    }
+
+    handlePrediction('crop-form', 'crop-result', '/api/crop');
+    handlePrediction('fertilizer-form', 'fertilizer-result', '/api/fertilizer');
+
+    const navToggle   = document.querySelector('.nav-toggle');
+  const topbarLinks = document.querySelector('.topbar-links');
+
+  if (navToggle && topbarLinks) {
+    // Open/close when pressing the ☰ button
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // don't trigger document click
+      topbarLinks.classList.toggle('open');
+    });
+
+    // Close menu when any link inside it is clicked
+    topbarLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        topbarLinks.classList.remove('open');
+      }
+      // stop bubbling so it doesn't count as "outside"
+      e.stopPropagation();
+    });
+
+    // Close when clicking anywhere outside the menu
+    document.addEventListener('click', (e) => {
+      const clickInsideMenu  = topbarLinks.contains(e.target);
+      const clickOnToggleBtn = navToggle.contains(e.target);
+
+      if (!clickInsideMenu && !clickOnToggleBtn) {
+        topbarLinks.classList.remove('open');
+      }
+    });
+  }
+  </script>
+</body>
+</html>

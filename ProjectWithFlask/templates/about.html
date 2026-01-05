@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agromatics | About Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+<body class="guide-body">
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <header class="hero guides-hero">
+    <nav class="topbar">
+      <a href="{{ url_for('home') }}" class="brand">
+        <div>
+          <span class="brand-mark">AGRI</span><span class="brand-tail"> ADVISOR</span>
+        </div>
+      </a>
+
+      <!-- Mobile menu button -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <div class="topbar-links">
+        <a href="{{ url_for('home') }}#crop">Crop AI</a>
+        <a href="{{ url_for('home') }}#fertilizer">Fertilizer AI</a>
+        <a href="{{ url_for('guides') }}">Guides</a>
+        <a href="{{ url_for('weather') }}">Weather</a>
+        <a class="active" href="{{ url_for('about') }}">About</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">About us</p>
+        <h1>Built in Sri Lanka to lift Sri Lankan farming.</h1>
+        <p class="lede">
+          Final Year Research Project at General Sir John Kotelawala Defence University, using machine learning to support farmers with clear, local guidance.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#story">Our story</a>
+          <a class="btn ghost" href="{{ url_for('home') }}">Back home</a>
+        </div>
+      </div>
+      <div class="hero-visual about-visual" aria-hidden="true">
+        <div class="logo-card">
+          <img src="{{ url_for('static', filename='kdu.png') }}" alt="KDU Logo">
+          <div class="muted small">General Sir John Kotelawala Defence University</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="guides-main">
+    <section id="story" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Why we built this</p>
+        <h2>Serving farmers with practical, AI-powered help.</h2>
+      </div>
+      <div class="panel-grid">
+        <div class="panel">
+          <p>
+            This project was developed as part of the Final Year Research Project at General Sir John Kotelawala Defence University (KDU) with the vision of supporting and uplifting Sri Lankan agriculture through modern technology.
+          </p>
+          <p>
+            Sri Lanka’s farmers face many challenges—unpredictable weather, soil differences, fertilizer shortages, and tough crop choices. We set out to give a simple, reliable tool that answers these problems.
+          </p>
+        </div>
+        <div class="panel highlight">
+          <div class="panel-title">What the system delivers</div>
+          <ul class="compact-list">
+            <li>🌾 Accurate crop recommendations</li>
+            <li>🌱 Optimized fertilizer suggestions</li>
+            <li>📊 Data-driven decision support</li>
+            <li>⚙️ Simple tools any farmer can use</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Our mission</p>
+        <h2>Bridge advanced tech with everyday farming.</h2>
+        <p class="lede">AI guidance in farmers’ hands to improve productivity, reduce losses, and support sustainable growth for Sri Lanka.</p>
+      </div>
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-title">Built for impact</div>
+          <ul class="compact-list">
+            <li>Keep recommendations local and easy to understand.</li>
+            <li>Make the interface usable on low-bandwidth, mobile devices.</li>
+            <li>Use in-memory models for fast responses with no external calls.</li>
+            <li>Stay aligned with sustainable farming practices.</li>
+          </ul>
+        </div>
+        <div class="panel highlight">
+          <div class="panel-title">Commitment</div>
+          <p class="muted">Innovation, education, and national development—technology to create a better future for the farming community of Sri Lanka.</p>
+          <a class="btn primary full" href="{{ url_for('home') }}">Explore the app</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  const navToggle   = document.querySelector('.nav-toggle');
+  const topbarLinks = document.querySelector('.topbar-links');
+
+  if (navToggle && topbarLinks) {
+    // Open/close when pressing the ☰ button
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // don't trigger document click
+      topbarLinks.classList.toggle('open');
+    });
+
+    // Close menu when any link inside it is clicked
+    topbarLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        topbarLinks.classList.remove('open');
+      }
+      // stop bubbling so it doesn't count as "outside"
+      e.stopPropagation();
+    });
+
+    // Close when clicking anywhere outside the menu
+    document.addEventListener('click', (e) => {
+      const clickInsideMenu  = topbarLinks.contains(e.target);
+      const clickOnToggleBtn = navToggle.contains(e.target);
+
+      if (!clickInsideMenu && !clickOnToggleBtn) {
+        topbarLinks.classList.remove('open');
+      }
+    });
+  }
+</script>
+</body>
+</html>

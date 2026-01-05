@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agromatics | Weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+<body class="guide-body">
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <header class="hero guides-hero">
+    <nav class="topbar">
+      <a href="{{ url_for('home') }}" class="brand">
+        <div>
+          <span class="brand-mark">AGRI</span><span class="brand-tail"> ADVISOR</span>
+        </div>
+      </a>
+
+      <!-- Mobile menu button -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <div class="topbar-links">
+        <a href="{{ url_for('home') }}#crop">Crop AI</a>
+        <a href="{{ url_for('home') }}#fertilizer">Fertilizer AI</a>
+        <a href="{{ url_for('guides') }}">Guides</a>
+        <a class="active" href="{{ url_for('weather') }}">Weather</a>
+        <a href="{{ url_for('about') }}">About</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Weather watch</p>
+        <h1>Check today and the next few hours, fast.</h1>
+        <p class="lede">
+          Search any town or village. See current temperature, rain chance, wind, and how it changes in the next hours.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#weather-search">Search now</a>
+          <a class="btn ghost" href="{{ url_for('home') }}">Back to predictions</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80');"></div>
+        <div class="hero-photo small" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=80');"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="guides-main">
+    <section id="weather-search" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Find my weather</p>
+        <h2>Type your place name, pick the match, get the forecast.</h2>
+        <p class="lede small">Powered by Open-Meteo (no API key needed). Works on mobile.</p>
+      </div>
+      <div class="panel-grid">
+        <div class="panel">
+          <label class="weather-label">Location
+            <input id="location-input" type="text" placeholder="e.g., Colombo, Kandy, Chennai" />
+          </label>
+          <button class="btn primary full" id="search-btn">Search weather</button>
+          <div id="search-status" class="muted small" style="margin-top:8px;"></div>
+          <div id="location-results" class="location-results"></div>
+        </div>
+        <div class="panel highlight">
+          <div class="panel-title">Current</div>
+          <div id="current-box" class="weather-box">Search a place to load data.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Next hours</p>
+        <h2>Temperature, rain chance, wind, humidity.</h2>
+      </div>
+      <div id="hourly-grid" class="hourly-grid">
+        <div class="muted small">No data yet. Search a location first.</div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Sri Lanka overview</p>
+        <h2>Island map with latest Sri Lanka weather details.</h2>
+        <p class="lede small">Quick view for farmers across provinces.</p>
+      </div>
+      <div class="map-wrap map-wrap-compact">
+        <img class="weather-map" src="https://meteo.gov.lk/images/SLMap.jpg?v=1763857085" alt="Sri Lanka weather map">
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const locInput = document.getElementById('location-input');
+    const searchBtn = document.getElementById('search-btn');
+    const statusEl = document.getElementById('search-status');
+    const resultsEl = document.getElementById('location-results');
+    const currentBox = document.getElementById('current-box');
+    const hourlyGrid = document.getElementById('hourly-grid');
+
+    function setStatus(message) {
+      statusEl.textContent = message || '';
+    }
+
+    function renderLocations(list) {
+      resultsEl.innerHTML = '';
+      if (!list || !list.length) {
+        resultsEl.innerHTML = '<div class="muted small">No places found. Try another name.</div>';
+        return;
+      }
+      list.slice(0, 5).forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'location-item';
+        btn.textContent = `${item.name}${item.admin1 ? ', ' + item.admin1 : ''}${item.country ? ', ' + item.country : ''}`;
+        btn.onclick = () => fetchWeather(item);
+        resultsEl.appendChild(btn);
+      });
+    }
+
+    function renderCurrent(current, placeLabel) {
+      if (!current) {
+        currentBox.textContent = 'No data';
+        return;
+      }
+      currentBox.innerHTML = `
+        <div class="weather-current-head">
+          <div>
+            <div class="muted small">Location</div>
+            <div class="current-place">${placeLabel}</div>
+          </div>
+          <div class="current-temp">${Math.round(current.temperature_2m)}°C</div>
+        </div>
+        <div class="weather-metrics">
+          <div><span class="muted small">Humidity</span><strong>${current.relative_humidity_2m}%</strong></div>
+          <div><span class="muted small">Wind</span><strong>${current.wind_speed_10m} km/h</strong></div>
+          <div><span class="muted small">Rain chance</span><strong>${current.precipitation_probability !== undefined ? current.precipitation_probability + '%' : '—'}</strong></div>
+        </div>
+      `;
+    }
+
+    function renderHourly(hourly) {
+      if (!hourly || !hourly.time) {
+        hourlyGrid.innerHTML = '<div class="muted small">No data</div>';
+        return;
+      }
+      const now = Date.now();
+      const cards = [];
+      for (let i = 0; i < hourly.time.length && cards.length < 12; i++) {
+        const ts = new Date(hourly.time[i]);
+        if (ts.getTime() + 1e6 < now) continue;
+        cards.push({
+          time: ts.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          temp: Math.round(hourly.temperature_2m[i]),
+          rain: hourly.precipitation_probability ? hourly.precipitation_probability[i] : '—',
+          wind: hourly.wind_speed_10m ? Math.round(hourly.wind_speed_10m[i]) : '—',
+          humidity: hourly.relative_humidity_2m ? hourly.relative_humidity_2m[i] : '—'
+        });
+      }
+      if (!cards.length) {
+        hourlyGrid.innerHTML = '<div class="muted small">No upcoming hours available.</div>';
+        return;
+      }
+      hourlyGrid.innerHTML = cards.map(c => `
+        <div class="hour-card">
+          <div class="hour-time">${c.time}</div>
+          <div class="hour-temp">${c.temp}°C</div>
+          <div class="hour-meta">
+            <span>Rain: ${c.rain}%</span>
+            <span>Wind: ${c.wind} km/h</span>
+            <span>Humidity: ${c.humidity}%</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function fetchWeather(place) {
+      try {
+        setStatus('Loading forecast…');
+        const url = new URL('https://api.open-meteo.com/v1/forecast');
+        url.searchParams.set('latitude', place.latitude);
+        url.searchParams.set('longitude', place.longitude);
+        url.searchParams.set('current', 'temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation_probability');
+        url.searchParams.set('hourly', 'temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation_probability');
+        url.searchParams.set('forecast_days', '1');
+        url.searchParams.set('timezone', 'auto');
+        const res = await fetch(url.toString());
+        if (!res.ok) throw new Error('Failed to fetch forecast');
+        const data = await res.json();
+        renderCurrent(data.current, `${place.name}${place.admin1 ? ', ' + place.admin1 : ''}${place.country ? ', ' + place.country : ''}`);
+        renderHourly(data.hourly);
+        setStatus('');
+      } catch (err) {
+        console.error(err);
+        setStatus('Could not load forecast. Please try again.');
+      }
+    }
+
+    async function searchLocation() {
+      const q = locInput.value.trim();
+      if (!q) {
+        setStatus('Type a place name to search.');
+        return;
+      }
+      try {
+        setStatus('Searching…');
+        resultsEl.innerHTML = '';
+        const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=5&language=en&format=json`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Search failed');
+        const data = await res.json();
+        renderLocations(data.results || []);
+        setStatus(data.results && data.results.length ? 'Pick a place below.' : 'No matches. Try another name.');
+      } catch (err) {
+        console.error(err);
+        setStatus('Could not search. Please try again.');
+      }
+    }
+
+    searchBtn.addEventListener('click', searchLocation);
+    locInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') searchLocation();
+    });
+
+    const navToggle   = document.querySelector('.nav-toggle');
+  const topbarLinks = document.querySelector('.topbar-links');
+
+  if (navToggle && topbarLinks) {
+    // Open/close when pressing the ☰ button
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // don't trigger document click
+      topbarLinks.classList.toggle('open');
+    });
+
+    // Close menu when any link inside it is clicked
+    topbarLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        topbarLinks.classList.remove('open');
+      }
+      // stop bubbling so it doesn't count as "outside"
+      e.stopPropagation();
+    });
+
+    // Close when clicking anywhere outside the menu
+    document.addEventListener('click', (e) => {
+      const clickInsideMenu  = topbarLinks.contains(e.target);
+      const clickOnToggleBtn = navToggle.contains(e.target);
+
+      if (!clickInsideMenu && !clickOnToggleBtn) {
+        topbarLinks.classList.remove('open');
+      }
+    });
+  }
+  </script>
+</body>
+</html>

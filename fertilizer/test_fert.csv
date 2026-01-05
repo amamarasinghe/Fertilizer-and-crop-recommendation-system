@@ -1,0 +1,19 @@
+Temparature,Humidity ,Moisture,Soil Type,Crop Type,Nitrogen,Potassium,Phosphorous,Fertilizer Name
+34,65,64,Black,Cotton,24,0,20,28-28
+27,54,30,Clayey,Pulses,13,0,13,20-20
+28,54,65,Black,Cotton,39,0,0,Urea
+36,60,43,Sandy,Millets,15,0,41,DAP
+31,62,44,Sandy,Barley,21,0,28,28-28
+27,53,35,Black,Oil seeds,37,0,0,Urea
+32,62,34,Red,Tobacco,22,0,24,28-28
+27,54,28,Clayey,Pulses,13,0,40,DAP
+26,52,38,Sandy,Maize,37,0,0,Urea
+30,60,27,Loamy,Sugarcane,12,0,40,DAP
+30,60,47,Sandy,Maize,22,0,21,28-28
+29,58,43,Clayey,Paddy,24,0,18,28-28
+30,60,63,Red,Cotton,9,9,29,14-35-14
+35,67,42,Sandy,Barley,10,0,35,DAP
+28,54,46,Clayey,Paddy,35,0,0,Urea
+35,68,33,Red,Tobacco,11,0,37,DAP
+25,50,65,Loamy,Cotton,36,0,0,Urea
+27,53,34,Black,Oil seeds,42,0,0,Urea

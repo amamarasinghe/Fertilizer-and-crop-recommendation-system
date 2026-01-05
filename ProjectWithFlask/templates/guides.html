@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agromatics | Guides for Farmers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+<body class="guide-body">
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <header class="hero guides-hero">
+    <nav class="topbar">
+      <a href="{{ url_for('home') }}" class="brand">
+        <div>
+          <span class="brand-mark">AGRI</span><span class="brand-tail"> ADVISOR</span>
+        </div>
+      </a>
+
+      <!-- Mobile menu button -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <div class="topbar-links">
+        <a href="{{ url_for('home') }}#crop">Crop AI</a>
+        <a href="{{ url_for('home') }}#fertilizer">Fertilizer AI</a>
+        <a class="active" href="{{ url_for('guides') }}">Guides</a>
+        <a href="{{ url_for('weather') }}">Weather</a>
+        <a href="{{ url_for('about') }}">About</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Learning center</p>
+        <h1>Simple farming guides made for busy growers.</h1>
+        <p class="lede">
+          Short, simple guides. Easy to read, easy to follow — created with expert knowledge.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#best-practices">Start reading</a>
+          <a class="btn ghost" href="{{ url_for('home') }}">Back to predictions</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80');"></div>
+        <div class="hero-photo small" style="background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80');"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="guides-main">
+    <section id="best-practices" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Best farming practices</p>
+        <h2>Seven habits that keep fields healthy and yields steady.</h2>
+      </div>
+      <div class="guide-grid">
+        <div class="guide-card">
+          <div class="badge">01</div>
+          <h3>Soil</h3>
+          <ul>
+            <li>Test pH and NPK once a year.</li>
+            <li>Add compost or manure to loosen soil.</li>
+            <li>Keep drains open so water does not stand.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">02</div>
+          <h3>Water</h3>
+          <ul>
+            <li>Water early morning or evening.</li>
+            <li>Use drip if possible to save 40-60 percent water.</li>
+            <li>Wet soil only as needed; soggy soil brings disease.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">03</div>
+          <h3>Seed & spacing</h3>
+          <ul>
+            <li>Use clean, certified seed that fits your area.</li>
+            <li>Keep even spacing so air and light reach plants.</li>
+            <li>Treat seed if pests are common in your field.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">04</div>
+          <h3>Feeding</h3>
+          <ul>
+            <li>Follow soil test for NPK; apply in 2-3 small doses.</li>
+            <li>Add compost or green manure to keep soil alive.</li>
+            <li>Avoid too much nitrogen; pests love soft growth.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">05</div>
+          <h3>Pests</h3>
+          <ul>
+            <li>Walk the field every 3-4 days; check under leaves.</li>
+            <li>Use simple traps and remove sick plants early.</li>
+            <li>Rotate crops to break pest life cycles.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">06</div>
+          <h3>Weeds</h3>
+          <ul>
+            <li>Control weeds in the first month.</li>
+            <li>Mulch to block new weeds.</li>
+            <li>Use herbicide only as directed.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">07</div>
+          <h3>Harvest</h3>
+          <ul>
+            <li>Harvest at the right stage; handle gently.</li>
+            <li>Dry grains well and store in clean, sealed bins.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="crops" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Guides for 100+ crops</p>
+        <h2>Copy this format for any crop.</h2>
+        <p class="lede">Here are quick samples. Repeat the same blocks for more crops.</p>
+      </div>
+      <div class="guide-grid three-col">
+        <div class="guide-card">
+          <div class="badge">Rice</div>
+          <p class="muted">Soil clay loam, pH 5.5-7. Temp 25-35 C. Rainfall above 1200 mm. Keep 2-4 inch water.</p>
+          <div class="note">Feed: Basal 45-60 N, 30 P, 30 K; Tillering 30-40 N; Panicle 20 N.</div>
+          <div class="muted small">Watch: brown plant hopper, stem borer, blast.</div>
+        </div>
+        <div class="guide-card">
+          <div class="badge">Maize</div>
+          <p class="muted">Soil pH 6-7.5. Temp 18-27 C. Rainfall 500-800 mm.</p>
+          <div class="note">Feed: Basal NPK 10:26:26; top dress urea in two splits.</div>
+          <div class="muted small">Watch: fall armyworm, leaf blight.</div>
+        </div>
+        <div class="guide-card">
+          <div class="badge">Potato</div>
+          <p class="muted">Soil sandy loam. Temp 15-20 C. Cool weather works best.</p>
+          <div class="note">Feed: NPK 75:50:100 plus gypsum and boron.</div>
+          <div class="muted small">Watch: potato tuber moth.</div>
+        </div>
+        <div class="guide-card">
+          <div class="badge">Tomato</div>
+          <p class="muted">Soil well-drained loam. Temp 21-24 C.</p>
+          <div class="note">Feed: NPK 75:50:50 plus 10 tons compost per acre.</div>
+          <div class="muted small">Watch: fruit borer, whiteflies, early blight.</div>
+        </div>
+        <div class="guide-card">
+          <div class="badge">Capsicum</div>
+          <p class="muted">Soil sandy loam. Temp 20-30 C.</p>
+          <div class="note">Feed: Basal NPK with micronutrients; split nitrogen at flowering.</div>
+        </div>
+        <div class="guide-card">
+          <div class="badge">Banana</div>
+          <p class="muted">Soil deep loam. Temp 26-30 C. Loves water.</p>
+          <div class="note">Feed: 200 g N, 50 g P, 300 g K per plant each month.</div>
+        </div>
+      </div>
+      <p class="muted small">Need the full list? We can add the complete 100-crop library.</p>
+    </section>
+
+    <section id="fertilizer" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Fertilizer schedules</p>
+        <h2>Easy stage-wise feeding plan.</h2>
+      </div>
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-title">By growth stage</div>
+          <ul class="compact-list">
+            <li><strong>Basal:</strong> Compost/FYM 10-20 tons per acre. Apply full P and K. Give 25 percent of N.</li>
+            <li><strong>Vegetative:</strong> Add 25-30 percent N. Add micronutrients if leaves show yellow or pale spots.</li>
+            <li><strong>Flowering:</strong> Add 20-30 percent N. Do not overdo nitrogen or flowers drop.</li>
+            <li><strong>Fruiting or grain fill:</strong> Add potash (K) to improve size, taste, and color.</li>
+          </ul>
+        </div>
+        <div class="panel highlight">
+          <div class="panel-title">Typical NPK ranges (kg/acre)</div>
+          <div class="table-like">
+            <div class="table-row header">
+              <span>Crop type</span><span>N</span><span>P</span><span>K</span>
+            </div>
+            <div class="table-row"><span>Cereals (Rice)</span><span>60-80</span><span>20-30</span><span>20-30</span></div>
+            <div class="table-row"><span>Maize</span><span>70-100</span><span>30-40</span><span>20-30</span></div>
+            <div class="table-row"><span>Vegetables</span><span>40-60</span><span>30-40</span><span>30-40</span></div>
+            <div class="table-row"><span>Tubers (Potato)</span><span>80-100</span><span>40-50</span><span>80-120</span></div>
+            <div class="table-row"><span>Fruits (Banana)</span><span>200</span><span>50</span><span>300</span></div>
+          </div>
+          <p class="muted small">Use soil test to adjust: low = full dose, medium = about 75 percent, high = reduce.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="soil" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">How to test soil</p>
+        <h2>Quick steps to collect, test, and act.</h2>
+      </div>
+      <div class="guide-grid three-col">
+        <div class="guide-card">
+          <div class="badge">Collect</div>
+          <ul>
+            <li>Take soil from 5-10 spots.</li>
+            <li>Depth: 6 inches for veg/field crops; 12 inches for fruit crops.</li>
+            <li>Remove stones and roots. Mix and dry in shade.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">Test</div>
+          <ul>
+            <li>Check pH, EC (salt), N, P, K, organic carbon, zinc, boron, iron.</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <div class="badge">Read</div>
+          <div class="table-like small">
+            <div class="table-row header"><span>pH</span><span>Action</span></div>
+            <div class="table-row"><span>Under 5.5</span><span>Add lime</span></div>
+            <div class="table-row"><span>5.5-7</span><span>Ideal</span></div>
+            <div class="table-row"><span>Over 7.5</span><span>Add gypsum</span></div>
+          </div>
+          <div class="table-like small">
+            <div class="table-row header"><span>Organic C</span><span>Status</span></div>
+            <div class="table-row"><span>Under 0.5</span><span>Poor</span></div>
+            <div class="table-row"><span>0.5-0.75</span><span>Medium</span></div>
+            <div class="table-row"><span>Over 0.75</span><span>Good</span></div>
+          </div>
+          <p class="muted small">NPK: low = full dose, medium = 75 percent, high = reduce.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ipm" class="form-section">
+      <div class="section-header">
+        <p class="eyebrow">Integrated pest management</p>
+        <h2>Safe, step-by-step pest control.</h2>
+      </div>
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-title">Five steps</div>
+          <ul class="compact-list">
+            <li><strong>Prevent:</strong> Clean field, good spacing, resistant varieties.</li>
+            <li><strong>Watch:</strong> Scout twice a week; use traps; act early.</li>
+            <li><strong>Biology:</strong> Use neem, Bt, ladybird beetles, Trichogramma.</li>
+            <li><strong>Chemical last:</strong> Use only registered sprays; rotate groups; follow harvest gap.</li>
+            <li><strong>Culture:</strong> Rotate crops, deep plough, and remove weeds.</li>
+          </ul>
+        </div>
+        <div class="panel highlight">
+          <div class="panel-title">Need more?</div>
+          <p class="muted">We can add the full 100-crop library, search, and updates later. For now, save this page for quick field use.</p>
+          <a class="btn primary full" href="{{ url_for('home') }}">Back to predictions</a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    const navToggle   = document.querySelector('.nav-toggle');
+  const topbarLinks = document.querySelector('.topbar-links');
+
+  if (navToggle && topbarLinks) {
+    // Open/close when pressing the ☰ button
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // don't trigger document click
+      topbarLinks.classList.toggle('open');
+    });
+
+    // Close menu when any link inside it is clicked
+    topbarLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        topbarLinks.classList.remove('open');
+      }
+      // stop bubbling so it doesn't count as "outside"
+      e.stopPropagation();
+    });
+
+    // Close when clicking anywhere outside the menu
+    document.addEventListener('click', (e) => {
+      const clickInsideMenu  = topbarLinks.contains(e.target);
+      const clickOnToggleBtn = navToggle.contains(e.target);
+
+      if (!clickInsideMenu && !clickOnToggleBtn) {
+        topbarLinks.classList.remove('open');
+      }
+    });
+  }
+  </script>
+  </main>
+</body>
+</html>
